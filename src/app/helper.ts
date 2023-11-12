@@ -1,10 +1,19 @@
+export interface Round {
+    duration: number,
+    breatheInHold: number
+}
+
 interface Settings {
-    rounds: number[];
+    rounds: Round[];
     schemeLevel: 1;
 }
 
 const defaultSettings: Settings = {
-    rounds: [30, 60, 90], schemeLevel: 1
+    rounds: [
+        {duration: 30, breatheInHold: 15},
+        {duration: 60, breatheInHold: 15},
+        {duration: 90, breatheInHold: 15}],
+    schemeLevel: 1
 }
 
 function getSettings(): Settings {
@@ -25,7 +34,6 @@ function formatSeconds(seconds: number) {
 const constants = {
     countdownSeconds: 3,
     breathsPerRound: 30,
-    breatheInHoldDuration: 15,
     breatheInOutDuration: 3.1,
     breatheInHoldCooldown: 3,
 }
@@ -33,7 +41,7 @@ const constants = {
 const staticRoundDuration = 
     constants.countdownSeconds + // Step 1
     (constants.breathsPerRound * constants.breatheInOutDuration) + // Step2
-    constants.breatheInHoldDuration + constants.breatheInHoldCooldown; // Step4
+    constants.breatheInHoldCooldown; // Step4
 
 const helper = {getSettings, setSettings, formatSeconds, constants, staticRoundDuration}
 
